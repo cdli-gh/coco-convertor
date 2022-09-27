@@ -17,4 +17,3 @@ Thankyou for using the convertor! :)<br>
 if you have any feature request or find some bugs, feel free to open an issue or email to `aditiansingh@gmail.com`
 <br><br>
 This convertor was developed by [Aditi Singh](https://github.com/Aditi-Singh16) as a part of GSoC 2022 project Seals Portal.
-
