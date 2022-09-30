@@ -1,15 +1,13 @@
 import json
 import os.path
 
-input_file = input("Enter the file name you want to convert(without extension): ")
-
-def createFile(annoList):
+def createFile(annoList,input_file):
     with open(f'{input_file}_to_w3c.w3c.json', 'w', encoding='utf-8') as f:
         json.dump(annoList, f, ensure_ascii=False, indent=4)
     if(os.path.exists(f'{input_file}_to_w3c.w3c.json')):
-        print("File converted!")
+        print("File converted and saved in current working directory!")
 
-def convert():
+def convert(input_file):
     f = open(input_file+".json")
     cocoData = json.load(f)
     annoList = []
@@ -38,6 +36,9 @@ def convert():
                     }
                 )
                 annoDict["target"] = {"selector": []}
+                for links in cocoData["images"]:
+                    annoDict["target"]["source"] = links['file_name']
+                    break
 
                 # check for ellipse
                 if len(ele["segmentation"][0]) == 144 and ele["bbox"][2] != ele["bbox"][3]:
@@ -128,7 +129,6 @@ def convert():
                         pointsList.append(str(ele["segmentation"][0][totalLen - 1]))
 
                     svgPoints = ",".join(pointsList)
-                    print(svgPoints)
                     annoDict["target"]["selector"].append(
                         {
                             "type": "SvgSelector",
@@ -136,4 +136,12 @@ def convert():
                         }
                     )
                 annoList.append(annoDict)
-    createFile(annoList)
+    createFile(annoList,input_file)
+
+input_file = input("Enter the file name you want to convert(without extension): ")
+if not input_file or ' ' in input_file:
+    print("Please enter the name without spaces!")
+elif not os.path.exists(f'{input_file}.json'):
+    print("Please make sure that the file you want to convert is in the current working directory!")
+else:
+    convert(input_file)
