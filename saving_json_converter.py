@@ -1,11 +1,8 @@
 import json
-import os.path
+import sys
 
-def createFile(annoList,input_file):
-    with open(f'{input_file}_to_w3c.w3c.json', 'w', encoding='utf-8') as f:
-        json.dump(annoList, f, ensure_ascii=False, indent=4)
-    if(os.path.exists(f'{input_file}_to_w3c.w3c.json')):
-        print("File converted and saved in current working directory!")
+def createFile(annoList):
+    sys.stdout.write(json.dumps(annoList))
 
 def convert(input_file):
     f = open(input_file+".json")
@@ -109,10 +106,6 @@ def convert(input_file):
                 annoList.append(annoDict)
     createFile(annoList,input_file)
 
-input_file = input("Enter the file name you want to convert(without extension): ")
-if not input_file or ' ' in input_file:
-    print("Please enter the name without spaces!")
-elif not os.path.exists(f'{input_file}.json'):
-    print("Please make sure that the file you want to convert is in the current working directory!")
-else:
-    convert(input_file)
+if __name__ == '__main__':
+    input = sys.stdin.readlines()
+    convert(json.dumps(input))

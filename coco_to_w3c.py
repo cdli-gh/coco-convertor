@@ -46,7 +46,7 @@ def convert(input_file):
                     ry = str(ele["bbox"][3] / 2)
                     cx = ele["segmentation"][0][36]
                     cy = ele["segmentation"][0][1]
-                    ellipsePath = '<svg><ellipse cx="${cx}" cy="{cy}" rx="${rx}" ry="{ry}"></ellipse></svg>'
+                    ellipsePath = f'<svg><ellipse cx="{cx}" cy="{cy}" rx="{rx}" ry="{ry}"></ellipse></svg>'
                     annoDict["target"]["selector"].append(
                         {
                             "type": "SvgSelector",
@@ -61,7 +61,7 @@ def convert(input_file):
                     cx = ele["segmentation"][0][36]
                     cy = ele["segmentation"][0][1]
                     circlePath = (
-                        '<svg><circle cx="${cx}" cy="{cy}" r="${r}"></circle></svg>'
+                        f'<svg><circle cx="{cx}" cy="{cy}" r="{r}"></circle></svg>'
                     )
                     annoDict["target"]["selector"].append(
                         {
