@@ -5,14 +5,13 @@ def createFile(annoList):
     sys.stdout.write(json.dumps(annoList))
 
 def convert(input_file):
-    f = open(input_file+".json")
-    cocoData = json.load(f)
+    viaData = json.loads(input)
     annoList = []
     id = 0
-
-    for key in cocoData:
+    viaData = json.loads(viaData[0])
+    for key in viaData:
         if key == "_via_img_metadata":
-            for ele in cocoData[key]:
+            for ele in viaData[key]:
                 id = id + 1
                 annoDict = {}
                 annoDict["@context"] = "http://www.w3.org/ns/anno.jsonld"
@@ -20,9 +19,9 @@ def convert(input_file):
                 annoDict["type"] = "Annotation"
                 annoDict["body"] = []
                 annoDict["target"] = {"selector": []}
-                annoDict["target"]["source"] = cocoData[key][ele]["filename"]
+                annoDict["target"]["source"] = viaData[key][ele]["filename"]
 
-                for region in cocoData[key][ele]["regions"]:
+                for region in viaData[key][ele]["regions"]:
                     annoDict["body"].append(
                         {
                             "type": "TextualBody",
