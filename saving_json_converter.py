@@ -15,7 +15,7 @@ def convert(input_file):
                 id = id + 1
                 annoDict = {}
                 annoDict["@context"] = "http://www.w3.org/ns/anno.jsonld"
-                annoDict["id"] = '/artifact-asset-annotations/'+str(id)
+                annoDict["id"] = str(id)
                 annoDict["type"] = "Annotation"
                 annoDict["body"] = []
                 annoDict["target"] = {"selector": []}
