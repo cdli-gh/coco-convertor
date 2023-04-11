@@ -7,7 +7,7 @@ def createFile(annoList):
 def convert(input_file):
     viaData = json.loads(input_file)
     annoList = []
-    id = 0
+    id = 1
     viaData = json.loads(viaData[0])
     for key in viaData:
         if key == "_via_img_metadata":
@@ -15,7 +15,7 @@ def convert(input_file):
                 id = id + 1
                 annoDict = {}
                 annoDict["@context"] = "http://www.w3.org/ns/anno.jsonld"
-                annoDict["id"] = id
+                annoDict["id"] = '/artifact-asset-annotations/'+id
                 annoDict["type"] = "Annotation"
                 annoDict["body"] = []
                 annoDict["target"] = {"selector": []}
@@ -74,7 +74,7 @@ def convert(input_file):
 
                         annoDict["target"]["selector"].append(
                             {
-                                "type": "FragmentSelector",
+                                "type": "SvgSelector",
                                 "conformsTo": "http://www.w3.org/TR/media-frags/",
                                 "value": "xywh=pixel:"+pixels,
                             }

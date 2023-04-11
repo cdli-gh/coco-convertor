@@ -7,7 +7,7 @@ def createFile(annoList):
 def convert(input):
     cocoData = json.loads(input)
     annoList = []
-    id = 0
+    id = 1
     cocoData = json.loads(cocoData[0])
     for key in cocoData:
         if key == "annotations":
@@ -15,7 +15,7 @@ def convert(input):
                 id = id + 1
                 annoDict = {}
                 annoDict["@context"] = "http://www.w3.org/ns/anno.jsonld"
-                annoDict["id"] = id
+                annoDict["id"] = '/artifact-asset-annotations/'+id
                 annoDict["type"] = "Annotation"
                 annoDict["body"] = []
                 annoDict["body"].append(
@@ -83,7 +83,7 @@ def convert(input):
 
                     annoDict["target"]["selector"].append(
                         {
-                            "type": "FragmentSelector",
+                            "type": "SvgSelector",
                             "conformsTo": "http://www.w3.org/TR/media-frags/",
                             "value": "xywh=pixel:"+pixels,
                         }
