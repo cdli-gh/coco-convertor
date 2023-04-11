@@ -5,7 +5,7 @@ def createFile(annoList):
     sys.stdout.write(json.dumps(annoList))
 
 def convert(input_file):
-    viaData = json.loads(input)
+    viaData = json.loads(input_file)
     annoList = []
     id = 0
     viaData = json.loads(viaData[0])
@@ -103,7 +103,7 @@ def convert(input_file):
                             }
                         )
                 annoList.append(annoDict)
-    createFile(annoList,input_file)
+    createFile(annoList)
 
 if __name__ == '__main__':
     input = sys.stdin.readlines()
