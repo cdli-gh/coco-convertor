@@ -79,6 +79,22 @@ def convert(input_file):
                                 "value": "xywh=pixel:"+pixels,
                             }
                         )
+                    elif (
+                        region["shape_attributes"]["name"] == "point"
+                    ):
+                        r = 4
+                        cx = region["shape_attributes"]["cx"]
+                        cy = region["shape_attributes"]["cy"]
+                        
+                        pointPath = (
+                            f'<svg><circle cx="{cx}" cy="{cy}" r="{r}"></circle></svg>'
+                        )
+                        annoDict["target"]["selector"].append(
+                            {
+                                "type": "SvgSelector",
+                                "value": pointPath,
+                            }
+                        )
                     # check for polygon
                     else:
                         pointsList = []
