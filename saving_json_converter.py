@@ -12,16 +12,15 @@ def convert(input_file):
     for key in viaData:
         if key == "_via_img_metadata":
             for ele in viaData[key]:
-                id = id + 1
-                annoDict = {}
-                annoDict["@context"] = "http://www.w3.org/ns/anno.jsonld"
-                annoDict["id"] = str(id)
-                annoDict["type"] = "Annotation"
-                annoDict["body"] = []
-                annoDict["target"] = {"selector": []}
-                annoDict["target"]["source"] = viaData[key][ele]["filename"]
-
                 for region in viaData[key][ele]["regions"]:
+                    annoDict = {}
+                    id = id + 1
+                    annoDict["@context"] = "http://www.w3.org/ns/anno.jsonld"
+                    annoDict["id"] = str(id)
+                    annoDict["type"] = "Annotation"
+                    annoDict["body"] = []
+                    annoDict["target"] = {"selector": []}
+                    annoDict["target"]["source"] = viaData[key][ele]["filename"]
                     annoDict["body"].append(
                         {
                             "type": "TextualBody",
@@ -118,7 +117,8 @@ def convert(input_file):
                                 "value": f"<svg><polygon points='{svgPoints}'></polygon></svg>",
                             }
                         )
-                annoList.append(annoDict)
+                    annoList.append(annoDict)
+
     createFile(annoList)
 
 if __name__ == '__main__':
