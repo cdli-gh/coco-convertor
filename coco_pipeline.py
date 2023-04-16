@@ -7,7 +7,7 @@ def createFile(annoList):
 def convert(input):
     cocoData = json.loads(input)
     annoList = []
-    id = 1
+    id = 0
     cocoData = json.loads(cocoData[0])
     for key in cocoData:
         if key == "annotations":

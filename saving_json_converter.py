@@ -7,7 +7,7 @@ def createFile(annoList):
 def convert(input_file):
     viaData = json.loads(input_file)
     annoList = []
-    id = 1
+    id = 0
     viaData = json.loads(viaData[0])
     for key in viaData:
         if key == "_via_img_metadata":
