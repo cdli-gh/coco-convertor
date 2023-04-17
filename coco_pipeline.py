@@ -32,10 +32,9 @@ def convert(input):
                     }
                 )
                 annoDict["target"] = {"selector": []}
-                for links in cocoData["images"]:
-                    annoDict["target"]["source"] = links['file_name']
-                    break
-
+                for item in cocoData["images"]:
+                    if item["id"] == ele["image_id"]:
+                        annoDict["target"]["source"] = item["file_name"]
                 # check for ellipse
                 if len(ele["segmentation"][0]) == 144 and ele["bbox"][2] != ele["bbox"][3]:
                     rx = str(ele["bbox"][2] / 2)
