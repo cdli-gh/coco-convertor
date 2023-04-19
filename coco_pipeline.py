@@ -64,34 +64,10 @@ def convert(input):
                             "value": circlePath,
                         }
                     )
-                # check for square/rect
-                elif (
-                    len(ele["segmentation"][0]) == 8
-                    and ele["segmentation"][0][0] == ele["bbox"][0]
-                    and ele["segmentation"][0][1] == ele["bbox"][1]
-                ):
-                    pixels = (
-                        str(ele["bbox"][0])
-                        + ","
-                        + str(ele["bbox"][1])
-                        + ","
-                        + str(ele["bbox"][2])
-                        + ","
-                        + str(ele["bbox"][3])
-                    )
-
-                    annoDict["target"]["selector"].append(
-                        {
-                            "type": "SvgSelector",
-                            "conformsTo": "http://www.w3.org/TR/media-frags/",
-                            "value": "xywh=pixel:"+pixels,
-                        }
-                    )
                 # check for polygon
                 else:
                     pointsList = []
                     totalLen = len(ele["segmentation"][0])
-                    n = len(ele["segmentation"][0]) / 2
                     i = 0
                     while i < totalLen:
                         if i == 0:
@@ -99,30 +75,16 @@ def convert(input):
                             i = i + 1
                             continue
                         try:
-                            if (
-                                ele["segmentation"][0][i] in ele["segmentation"][0]
-                                and ele["segmentation"][0][i + 1] in ele["segmentation"][0]
-                            ):
-                                points = (
-                                    str(ele["segmentation"][0][i])
-                                    + " "
-                                    + str(ele["segmentation"][0][i + 1])
-                                )
-                                pointsList.append(points)
-                                i = i + 2
+                            points = (
+                                str(ele["segmentation"][0][i])
+                                + " "
+                                + str(ele["segmentation"][0][i + 1])
+                            )
+                            pointsList.append(points)
+                            i = i + 2
                         except IndexError:
-                            if len(pointsList) - 1 < n:
-                                points = (
-                                    str(ele["segmentation"][0][i])
-                                    + " "
-                                    + str(ele["segmentation"][0][i - 1])
-                                )
-                                pointsList.append(points)
-                                pointsList.append(str(ele["segmentation"][0][i]))
-                                break
-                    if totalLen % 2 != 0:
-                        pointsList.append(str(ele["segmentation"][0][totalLen - 1]))
-
+                            break
+                        pointsList.append(str(ele["segmentation"][0][i]))
                     svgPoints = ",".join(pointsList)
                     annoDict["target"]["selector"].append(
                         {
